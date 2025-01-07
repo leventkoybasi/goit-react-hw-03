@@ -1,3 +1,4 @@
+/* GLOBAL */
 :global(body) {
   font-family: "Roboto", serif;
   background-image: url("../src/assets/image/bgc.jpg") !important;
@@ -8,22 +9,33 @@
   height: 100%;
   overflow: hidden;
 }
+:global(a) {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+:global(#me) {
+  transition: transform 0.3s ease-in-out;
+}
+
+:global(#me):hover {
+  transform: scale(1.5);
+}
 .shadowContainer {
   width: 80%;
   height: calc(100vh - 50px);
-  margin: auto;
+  margin: 0 auto;
   padding: 20px;
 
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0);
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
 }
-
+/* TITLE */
 .mainTitle {
   font-size: 3em;
-  text-align: center;
   margin-top: 1em;
 }
 /* TABLE */

@@ -2,7 +2,7 @@ import style from "../App.module.css";
 
 function ContactList() {
   return (
-    <div className='mt-3 px-5'>
+    <div className='mt-5 mx-3 px-5'>
       <table className={`table table-hover text-white ${style.transparentTable} `}>
         <thead>
           <tr>
