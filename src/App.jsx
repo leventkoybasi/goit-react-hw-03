@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import style from "./App.module.css";
+import ContactForm from "./components/ContactForm";
+import ContactList from "./components/ContactList";
+import SearchBox from "./components/SearchBox";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className={style.shadowContainer}>
+        <div className='mx-5'>
+          <div className='mb-4 border-bottom'>
+            <h1 className={`${style.mainTitle} text-white text-start ms-5`}>
+              <i className='bi bi-telephone-fill fs-1 me-4'></i>
+              Phonebook
+            </h1>
+          </div>
+          <div className='row'>
+            <div className='col-4'>
+              <SearchBox />
+              <ContactForm />
+            </div>
+            <div className='col-8'>
+              <ContactList />
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='text-white text-center my-3'>
+        <small>leventkoybasi ©</small>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
