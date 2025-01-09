@@ -20,9 +20,29 @@ function App() {
     });
     actions.resetForm();
   };
+  //onChange Action
+  const onChange = (e) => {
+    const searchValue = e.target.value;
+    handleSearch(searchValue);
+  };
 
   //Search Action
+  const handleSearch = (searchValue) => {
+    if (searchValue.trim() === "") {
+      const savedContacts = window.localStorage.getItem("Contacts");
+      setContact(savedContacts ? JSON.parse(savedContacts) : []);
+      return;
+    }
+    //Filter Action
+    const filteredContacts = contact.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.phone.toString().includes(searchValue) ||
+        item.email.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
+    setContact(filteredContacts);
+  };
   return (
     <>
       <div className={`${style.shadowContainer}  w-md-100 m-md-auto`}>
@@ -35,7 +55,7 @@ function App() {
           </div>
           <div className='row pt-5 '>
             <div className='col-12 col-xl-4 mb-4 px-lg-5 px-sm-2'>
-              <SearchBox />
+              <SearchBox handleSearch={handleSearch} onChange={onChange} />
               <ContactForm handleSubmit={handleSubmit} />
             </div>
             <div className='col-12 col-xl-8 p-sm-0'>

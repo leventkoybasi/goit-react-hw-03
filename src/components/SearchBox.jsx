@@ -1,36 +1,32 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import searchSchema from "../js/inputSchema.js";
+/* eslint-disable react/prop-types */
+import { Formik, Form, Field } from "formik";
 
 const initialFormValues = {
   search: "",
 };
-const handleSubmit = (values) => {
-  console.log("VALUES", values.search);
-};
-function SearchBox() {
-  return (
-    <Formik
-      initialValues={initialFormValues}
-      validationSchema={searchSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form className='my-5 pb-5'>
-        <div className='input-group'>
-          <Field
-            type='text'
-            className='form-control fs-4 px-4'
-            placeholder='Search'
-            name='search'
-          />
 
-          <div className='input-group-append'>
-            <button type='submit' className='btn btn-light input-group-text' id='basic-addon2'>
-              <i className='bi bi-search fs-4' />
-            </button>
+function SearchBox({ handleSearch, onChange }) {
+  return (
+    <Formik initialValues={initialFormValues} onSubmit={handleSearch}>
+      {({ handleChange }) => (
+        <Form className='my-5 pb-5'>
+          <div className='input-group'>
+            <Field
+              type='text'
+              className='form-control fs-4 px-4'
+              placeholder='Search'
+              name='search'
+              onChange={(e) => {
+                handleChange(e);
+                onChange(e);
+              }}
+            />
+            <span className='input-group-text'>
+              <i className='bi bi-search fs-4'></i>
+            </span>
           </div>
-          <ErrorMessage name='search' component='div' className='text-danger' />
-        </div>
-      </Form>
+        </Form>
+      )}
     </Formik>
   );
 }
