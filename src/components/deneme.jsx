@@ -1,19 +1,16 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import searchSchema from "../js/inputSchema.js";
+import { Formik, Form, Field } from "formik";
 
 const initialFormValues = {
   search: "",
 };
+
 const handleSubmit = (values) => {
-  console.log("VALUES", values.search);
+  console.log("Search Value:", values.search); // input değerini konsola yazdırma
 };
+
 function SearchBox() {
   return (
-    <Formik
-      initialValues={initialFormValues}
-      validationSchema={searchSchema}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialFormValues} onSubmit={handleSubmit}>
       <Form className='my-5 pb-5'>
         <div className='input-group'>
           <Field
@@ -22,13 +19,11 @@ function SearchBox() {
             placeholder='Search'
             name='search'
           />
-
           <div className='input-group-append'>
-            <button type='submit' className='btn btn-light input-group-text' id='basic-addon2'>
+            <button type='submit' className='btn btn-light input-group-text'>
               <i className='bi bi-search fs-4' />
             </button>
           </div>
-          <ErrorMessage name='search' component='div' className='text-danger' />
         </div>
       </Form>
     </Formik>

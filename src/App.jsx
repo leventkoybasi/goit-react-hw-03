@@ -1,25 +1,45 @@
+import { useState } from "react";
 import style from "./App.module.css";
+
+// Components
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
 import SearchBox from "./components/SearchBox";
 function App() {
+  const [contact, setContact] = useState(() => {
+    const savedContacts = window.localStorage.getItem("Contacts");
+    return savedContacts ? JSON.parse(savedContacts) : [];
+  });
+
+  //Submit Action
+  const handleSubmit = (values, actions) => {
+    setContact((prevContacts) => {
+      const updatedContacts = [...prevContacts, values];
+      window.localStorage.setItem("Contacts", JSON.stringify(updatedContacts));
+      return updatedContacts;
+    });
+    actions.resetForm();
+  };
+
+  //Search Action
+
   return (
     <>
-      <div className={style.shadowContainer}>
-        <div className='mx-5'>
-          <div className='mb-4 border-bottom pb-4'>
-            <h1 className={`${style.mainTitle} text-white text-start ms-5`}>
-              <i className='bi bi-telephone-fill fs-1 me-4 '></i>
+      <div className={`${style.shadowContainer}  w-md-100 m-md-auto`}>
+        <div className='mx-xl-5 m-sm-0'>
+          <div className='mb-4 border-bottom pb-4 fs-xxl-1 fs-lg-4'>
+            <h1 className={`${style.mainTitle} text-white text-start mt-5`}>
+              <i className='bi bi-telephone-fill me-4 '></i>
               Phonebook
             </h1>
           </div>
-          <div className='row pt-5'>
-            <div className='col-4'>
+          <div className='row pt-5 '>
+            <div className='col-12 col-xl-4 mb-4 px-lg-5 px-sm-2'>
               <SearchBox />
-              <ContactForm />
+              <ContactForm handleSubmit={handleSubmit} />
             </div>
-            <div className='col-8'>
-              <ContactList />
+            <div className='col-12 col-xl-8 p-sm-0'>
+              <ContactList contact={contact} setContact={setContact} />
             </div>
           </div>
         </div>
@@ -27,7 +47,7 @@ function App() {
       <div className='text-white text-center my-3' id='me'>
         <a href='https://github.com/leventkoybasi'>
           <p>
-            leventkoybasi <i className='bi bi-c-circle ms-3'></i>
+            leventkoybasi <i className='bi bi-github ms-2'></i>
           </p>
         </a>
       </div>
