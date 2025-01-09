@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./App.module.css";
+import { contactData } from "./data/contactData.js";
 
 // Components
 import ContactForm from "./components/ContactForm";
@@ -8,7 +9,7 @@ import SearchBox from "./components/SearchBox";
 function App() {
   const [contact, setContact] = useState(() => {
     const savedContacts = window.localStorage.getItem("Contacts");
-    return savedContacts ? JSON.parse(savedContacts) : [];
+    return savedContacts ? JSON.parse(savedContacts) : contactData;
   });
 
   //Submit Action
