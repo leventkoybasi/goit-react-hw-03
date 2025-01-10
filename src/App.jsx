@@ -31,7 +31,12 @@ function App() {
   const handleSearch = (searchValue) => {
     if (searchValue.trim() === "") {
       const savedContacts = window.localStorage.getItem("Contacts");
-      setContact(savedContacts ? JSON.parse(savedContacts) : []);
+      if (savedContacts) {
+        setContact(JSON.parse(savedContacts));
+      } else if (!savedContacts) {
+        setContact(contactData);
+        return;
+      }
       return;
     }
     //Filter Action
