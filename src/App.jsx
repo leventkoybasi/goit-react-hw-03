@@ -6,11 +6,18 @@ import { contactData } from "./data/contactData.js";
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
 import SearchBox from "./components/SearchBox";
+import ErrorModal from "./components/ErrorModal.jsx";
+// Variables
+const savedContacts = window.localStorage.getItem("Contacts");
+
 function App() {
-  const [contact, setContact] = useState(() => {
-    const savedContacts = window.localStorage.getItem("Contacts");
+  const getContact = () => {
     return savedContacts ? JSON.parse(savedContacts) : contactData;
-  });
+  };
+  //States
+  const [contact, setContact] = useState(() => getContact());
+
+  const [error, setError] = useState(false);
 
   //Submit Action
   const handleSubmit = (values, actions) => {
@@ -30,7 +37,6 @@ function App() {
   //Search Action
   const handleSearch = (searchValue) => {
     if (searchValue.trim() === "") {
-      const savedContacts = window.localStorage.getItem("Contacts");
       if (savedContacts) {
         setContact(JSON.parse(savedContacts));
       } else if (!savedContacts) {
@@ -47,7 +53,13 @@ function App() {
         item.email.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    setContact(filteredContacts);
+    if (filteredContacts.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+      setContact(filteredContacts);
+      searchValue = "";
+    }
   };
   return (
     <>
@@ -65,7 +77,16 @@ function App() {
               <ContactForm handleSubmit={handleSubmit} />
             </div>
             <div className='col-12 col-xl-8 p-sm-0'>
-              <ContactList contact={contact} setContact={setContact} />
+              {!error ? (
+                <ContactList contact={contact} setContact={setContact} />
+              ) : (
+                <ErrorModal
+                  onClose={() => {
+                    setError(false);
+                    getContact();
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
