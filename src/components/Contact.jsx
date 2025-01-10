@@ -6,7 +6,9 @@ function Contact({ item, index, onDelete }) {
       <th scope='row'>{index + 1}</th>
       <td>{item.name}</td>
       <td>{item.phone}</td>
-      <td>{item.email}</td>
+      <td className='text-wrap text-break fs-6'>
+        <small>{item.email}</small>
+      </td>
       <td>
         <button className='btn btn-primary btn-sm' onClick={() => onDelete(item.id)}>
           <span className='d-none d-md-inline'>Delete</span>
